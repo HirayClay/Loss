@@ -34,15 +34,11 @@ public class PlayingBehavior extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
-        Log.i(TAG, "onNestedScroll: " + dyConsumed + "  " + dyUnconsumed);
-        if (dyConsumed > 0)
-            playingBar.hide();
-        if (dyUnconsumed < 0) playingBar.show();
-    }
-
-    @Override
-    public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
+        if (type == ViewCompat.TYPE_TOUCH)
+            if (dyConsumed > 0) {
+                playingBar.hide();
+            } else if (dyConsumed<0){
+                playingBar.show();
+            }
     }
 }

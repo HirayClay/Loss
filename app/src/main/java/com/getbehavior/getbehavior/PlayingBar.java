@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -22,13 +23,24 @@ public class PlayingBar extends FrameLayout {
         }
     }
 
+    class CloseClickListener implements OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            //应该使用动画
+            parent.removeView(PlayingBar.this);
+        }
+    }
+
     //默认使用这个控件时候，正在播放。
     boolean playing = true;
     boolean hidden = false;
-    ImageView playBtn;
-    View closeBtn;
-    View upBtn;
-    View animateSpeecher;
+    private ImageView playBtn;
+    private View closeBtn;
+    private View upBtn;
+    private View animateSpeecher;
+    private ViewGroup parent;
+    private int originTop;
 
     public PlayingBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -45,13 +57,13 @@ public class PlayingBar extends FrameLayout {
         animateSpeecher = findViewById(R.id.animate_speecher);
         upBtn = findViewById(R.id.up);
         playBtn.setOnClickListener(new PlayClickListener());
+        closeBtn.setOnClickListener(new CloseClickListener());
     }
 
     private void animateSpeecher() {
         float distanceToAnimate = closeBtn.getWidth();
         if (playing)
             distanceToAnimate = 0;
-
 
         animateSpeecher
                 .animate()
@@ -65,21 +77,33 @@ public class PlayingBar extends FrameLayout {
         upBtn.setOnClickListener(listener);
     }
 
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        parent = (ViewGroup) getParent();
+    }
+
     public void hide() {
+        if (originTop == 0)
+            originTop = getTop();
+
         if (hidden)
             return;
-        animate().translationY(getTop() + getHeight())
+        animate().translationY(getHeight())
                 .setDuration(249)
                 .start();
+        hidden = true;
 
     }
 
     public void show() {
         if (!hidden)
             return;
-        animate().translationY(getTop() - getHeight())
+        animate().translationY(0)
                 .setDuration(249)
                 .start();
+        hidden = false;
 
     }
 
