@@ -36,6 +36,9 @@ public class PlayingBehavior extends CoordinatorLayout.Behavior<View> {
     public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
         Log.i(TAG, "onNestedScroll: " + dyConsumed + "  " + dyUnconsumed);
+        if (dyConsumed > 0)
+            playingBar.hide();
+        if (dyUnconsumed < 0) playingBar.show();
     }
 
     @Override
