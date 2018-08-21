@@ -24,6 +24,7 @@ public class PlayingBar extends FrameLayout {
 
     //默认使用这个控件时候，正在播放。
     boolean playing = true;
+    boolean hidden = false;
     ImageView playBtn;
     View closeBtn;
     View upBtn;
@@ -64,11 +65,21 @@ public class PlayingBar extends FrameLayout {
         upBtn.setOnClickListener(listener);
     }
 
-    public void verticalHide(){
+    public void hide() {
+        if (hidden)
+            return;
+        animate().translationY(getTop() + getHeight())
+                .setDuration(249)
+                .start();
 
     }
 
-    public void verticalShow(){
+    public void show() {
+        if (!hidden)
+            return;
+        animate().translationY(getTop() - getHeight())
+                .setDuration(249)
+                .start();
 
     }
 
