@@ -40,7 +40,6 @@ public class PlayingBar extends FrameLayout {
     private View upBtn;
     private View animateSpeecher;
     private ViewGroup parent;
-    private int originTop;
 
     public PlayingBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -85,8 +84,6 @@ public class PlayingBar extends FrameLayout {
     }
 
     public void hide() {
-        if (originTop == 0)
-            originTop = getTop();
 
         if (hidden)
             return;
