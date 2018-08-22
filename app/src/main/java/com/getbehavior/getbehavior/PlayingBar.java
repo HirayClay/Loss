@@ -1,5 +1,7 @@
 package com.getbehavior.getbehavior;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,12 +25,11 @@ public class PlayingBar extends FrameLayout {
         }
     }
 
-    class CloseClickListener implements OnClickListener{
+    class CloseClickListener implements OnClickListener {
 
         @Override
         public void onClick(View v) {
-            //应该使用动画
-            parent.removeView(PlayingBar.this);
+            removeSelf();
         }
     }
 
@@ -102,6 +103,19 @@ public class PlayingBar extends FrameLayout {
                 .start();
         hidden = false;
 
+    }
+
+
+    private void removeSelf() {
+        animate().translationY(getHeight())
+                .setDuration(249)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        parent.removeView(PlayingBar.this);
+                    }
+                })
+                .start();
     }
 
 
