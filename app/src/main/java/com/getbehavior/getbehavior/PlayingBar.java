@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class PlayingBar extends FrameLayout {
-    private static final String TAG = "PlayingBar";
 
     class PlayClickListener implements OnClickListener {
 
@@ -59,7 +58,6 @@ public class PlayingBar extends FrameLayout {
         upBtn = findViewById(R.id.up);
         playBtn.setOnClickListener(new PlayClickListener());
         closeBtn.setOnClickListener(new CloseClickListener());
-        Log.i(TAG, "onFinishInflate: "+closeBtn.isClickable());
     }
 
     private void animateSpeecher() {
