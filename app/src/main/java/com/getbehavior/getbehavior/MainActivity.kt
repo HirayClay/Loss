@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         playingBar.setOnUpClickListener({
-            startActivity(Intent(this@MainActivity, BottomShootingActivity::class.java))
+            startActivity(Intent(this@MainActivity, ItemDecorationActivity::class.java))
             overridePendingTransition(R.anim.bottom_in_anim, R.anim.stay)
         })
 
